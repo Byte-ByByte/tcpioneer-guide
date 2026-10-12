@@ -25,6 +25,57 @@ Every link in this multi-level list does **not** need authentication to access.
 * * * [Request Session (/request-session)](/guide/endpoints/request-session)
 * * Capabilities
 
+## Caching
+
+TCPIOneer supports caching with `Cache-Control` and `ETag`, so clients do not spend precious bandwidth redownloading documentation files for TCPIOneer.
+
+> **REMEMBER**: Always revalidate cached documentation before relying on it for API operations.
+
+> Caching is only supported by documentation files. There is no caching on API endpoints.
+
+When a client sends a `GET` request to the documentation endpoints, the server sends back the documentation files, the headers required to send a file, and importantly, the headers for caching.
+
+The *main* two headers TCPIOneer utilize for caching are `Cache-Control` and `ETag`.
+
+`Cache-Control` will be **always** returned as `no-cache` on documentation files.
+
+`ETag` will be an **SHA256 digest** of the file encoded as **UTF-8** as a **hexidecimal string** in **lowercase**.
+
+It is possible to compare the `ETag` yourself, though it is **highly** recommended to compare it through headers `If-None-Match`, `If-Modified-Since`, or both.
+
+> Note: `If-None-Match` takes precedence when the request has both `If-None-Match` and `If-Modified-Since`.
+
+### Examples
+
+The client sends a GET request to the server, while a version of its requested file has been cached to it.
+
+```http
+GET /guide HTTP/1.1
+[other headers...]
+If-None-Match: "17dc0d50ad0fa7bdaebd8f178fe3cc0b5b3a463e3ca5bf21a5e3b90330f2a06e"
+If-Modified-Since: Sun, 11 Oct 2026, 03:37:23 GMT
+```
+
+The server has detected that the client **has** the current version and has informed the client to use its cached version.
+
+```http
+HTTP/1.1 304 Not Modified
+[other headers...]
+Date: Sun, 11 Oct 2026, 03:47:04 GMT
+Cache-Control: no-cache
+ETag: "17dc0d50ad0fa7bdaebd8f178fe3cc0b5b3a463e3ca5bf21a5e3b90330f2a06e"
+```
+
+The server has detected that the client **does not have** the current version and has given the client the current version.
+
+```http
+HTTP/1.1 200 OK
+[other headers...]
+Date: Sun, 11 Oct 2026, 03:47:04 GMT
+Cache-Control: no-cache
+ETag: "17dc0d50ad0fa7bdaebd8f178fe3cc0b5b3a463e3ca5bf21a5e3b90330f2a06e"
+```
+
 ## Authentication
 Authentication in TCPIOneer is essential when you need to access endpoints related to remote desktop.
 
@@ -34,7 +85,8 @@ A token must be given to you by a server operator. Without an auth token, you **
 If you have a token, using it is simple. To use a token, place it in the `Authorization` header as a `Bearer` token.
 
 Example:
-```
+
+```http
 GET /api/v1/request-session HTTP/1.1
 [other headers...]
 Authorization: Bearer abcd1234

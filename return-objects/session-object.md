@@ -15,12 +15,12 @@ In this document is a:
 Attributes for the session object are listed as:
 
 * `session-key`: UUID, used to access a session (see [Guide: Session Key](/guide#session-key))
-* `created`: UTC string (ISO 8601) describing when the session was made
-* `expiry`: UTC string (ISO 8601) describing **when the session will expire** and be deleted
+* `created`: ISO string (ISO 8601) describing when the session was made
+* `expiry`: ISO string (ISO 8601) describing **when the session will expire** and be deleted
 * `capabilities`: List of capabilities **permitted** to be used this session (see [Capabilities](/guide/capabilities))
 * `timeout`: How many seconds the session can be **unused** before the server deletes the session
 * `usable`: If the session can be used **right now**.
-* `unusable-until`: `undefined` if `usable` is `true`, If `usable` is `false`, `unusable-until` is a UTC string (ISO 8601) that describes **when the session can be used**.
+* `unusable-until`: `undefined` if `usable` is `true`, If `usable` is `false`, `unusable-until` is an ISO string (ISO 8601) that describes **when the session can be used**.
 
 ## Examples
 
@@ -41,7 +41,7 @@ Below is an example session object that is fully filled out.
     ],
     "timeout": 120,
     "usable": false,
-    "unusable-until": "2026-02-01T10:25:37.000Z"
+    "unusable-until": "2026-10-02T10:25:37.000Z"
 }
 ```
 
