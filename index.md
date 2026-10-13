@@ -23,11 +23,13 @@ Every link in this multi-level list does **not** need authentication to access.
 * [Guide](/guide)
 * * Endpoints
 * * * [Request Session (/request-session)](/guide/endpoints/request-session)
-* * Capabilities
+* * * [Guide (/guide/*)](/guide/endpoints/guide)
+* * * [Capability (/capability)](/guide/endpoints/capability)
+* * [Capabilities](/guide/capabilities)
 
 ## Caching
 
-TCPIOneer supports caching with `Cache-Control` and `ETag`, so clients do not spend precious bandwidth redownloading documentation files for TCPIOneer.
+TCPIOneer supports caching with `Cache-Control`, `ETag`, and `If-None-Match`, so clients do not spend precious bandwidth redownloading documentation files for TCPIOneer.
 
 > **REMEMBER**: Always revalidate cached documentation before relying on it for API operations.
 
@@ -35,15 +37,23 @@ TCPIOneer supports caching with `Cache-Control` and `ETag`, so clients do not sp
 
 When a client sends a `GET` request to the documentation endpoints, the server sends back the documentation files, the headers required to send a file, and importantly, the headers for caching.
 
-The *main* two headers TCPIOneer utilize for caching are `Cache-Control` and `ETag`.
+The headers TCPIOneer utilize for caching are `Cache-Control`, `ETag`, and `If-None-Match`.
 
 `Cache-Control` will be **always** returned as `no-cache` on documentation files.
 
-`ETag` will be an **SHA256 digest** of the file encoded as **UTF-8** as a **hexidecimal string** in **lowercase**.
+`ETag` will be an **SHA256 digest** of the file encoded as **UTF-8** as a **hexadecimal string** in **lowercase**.
 
-It is possible to compare the `ETag` yourself, though it is **highly** recommended to compare it through headers `If-None-Match`, `If-Modified-Since`, or both.
+It is possible to compare the `ETag` yourself, though it is **highly** recommended to compare it through `If-None-Match`.
 
 > Note: `If-None-Match` takes precedence when the request has both `If-None-Match` and `If-Modified-Since`.
+
+### Endpoint Behavior
+
+When a client sends a `GET` request to the documentation endpoints **without** `If-None-Match`, the server will respond with `200 OK`, the documentation resource requested, and headers related to caching like `Cache-Control` and `ETag`. 
+
+When a client sends a `GET` request to the documentation endpoints **without** `If-None-Match` header **matching** the file requested, the server will respond with `200 OK`, the documentation resource requested, and headers related to caching like `Cache-Control` and `ETag`. 
+
+When a client sends a `GET` request to the documentation endpoints **with** `If-None-Match` matching the file requested, the server will send a `304 Not Modified` response code, with no body, and the headers it would usually send in a `200 OK` response, including applicable cache metadata.
 
 ### Examples
 
@@ -53,7 +63,6 @@ The client sends a GET request to the server, while a version of its requested f
 GET /guide HTTP/1.1
 [other headers...]
 If-None-Match: "17dc0d50ad0fa7bdaebd8f178fe3cc0b5b3a463e3ca5bf21a5e3b90330f2a06e"
-If-Modified-Since: Sun, 11 Oct 2026, 03:37:23 GMT
 ```
 
 The server has detected that the client **has** the current version and has informed the client to use its cached version.
@@ -61,7 +70,6 @@ The server has detected that the client **has** the current version and has info
 ```http
 HTTP/1.1 304 Not Modified
 [other headers...]
-Date: Sun, 11 Oct 2026, 03:47:04 GMT
 Cache-Control: no-cache
 ETag: "17dc0d50ad0fa7bdaebd8f178fe3cc0b5b3a463e3ca5bf21a5e3b90330f2a06e"
 ```
@@ -71,7 +79,6 @@ The server has detected that the client **does not have** the current version an
 ```http
 HTTP/1.1 200 OK
 [other headers...]
-Date: Sun, 11 Oct 2026, 03:47:04 GMT
 Cache-Control: no-cache
 ETag: "17dc0d50ad0fa7bdaebd8f178fe3cc0b5b3a463e3ca5bf21a5e3b90330f2a06e"
 ```
