@@ -12,6 +12,7 @@ Requests the server to run a capability (see [Capabilities](/guide/capabilities)
 
 * `capability-name`: `string` Capability ID to run. See [Capabilities: Capabilities Table](/guide/capabilities#capabilities-table) for examples.
 * `params`: `{...}` Parameters to the capability to run with. See [Capabilites: Capabilities Table](/guide/capabilities#capabilities-table) for specific documentation on each capability's parameters.
+* `task` The task you want the capability to run. See [Capabilites: Capabilities Table](/guide/capabilities#capabilities-table) for specific documentation on each capability's tasks, and see [Capabilites: Tasks](/guide/capabilities#capabilities-table) for more information on tasks.
 * `session`: Inherited from [Guide: Session Usage](/guide#session-usage). The session key you want this capability to be used on.
 
 
@@ -37,7 +38,7 @@ The interaction completed successfully.
 
 ##### Returns:
 
-
+The resource the capability returned. See [Capabilites: Capabilities Table](/guide/capabilities#capabilities-table) for specific documentation on each capability's return value.
 
 #### 409 Conflict
 

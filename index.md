@@ -24,8 +24,9 @@ Every link in this multi-level list does **not** need authentication to access.
 * * Endpoints
 * * * [Request Session (/request-session)](/guide/endpoints/request-session)
 * * * [Guide (/guide/*)](/guide/endpoints/guide)
-* * * [Capability (/capability)](/guide/endpoints/capability)
+* * * [Tun Capability (/capability)](/guide/endpoints/capability)
 * * [Capabilities](/guide/capabilities)
+* * * [Keyboard](/guide/capabilities/keyboard)
 
 ## Caching
 
