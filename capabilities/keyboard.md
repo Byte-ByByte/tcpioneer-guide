@@ -2,9 +2,7 @@
 
 > This is a capability, not an endpoint. To access it, see [Capability (/capability)](/guide/endpoints/capability).
 
-Sends keypresses onto the host and can tramsmit recent keypresses from the host.
-
-> Note: **Not all recent keypresses are returned by this capability for security reasons.** The host can choose which recent keypresses to return, to clear keypress history, or to only show keypresses between a certain time or date.
+Sends keypresses onto the host.
 
 ## Acceptable Keys
 
@@ -84,14 +82,3 @@ None
 #### Returns
 
 None
-
-### 3: Fetch Last Keypresses
-
-#### Parameters
-
-`length`: **OPTIONAL** The amount of keypresses you want to fetch from the host. This is **best-effort** for security. **Default is maximum.**
-
-#### Returns
-
-Array of keypresses in acceptable key format.
-If a key is not recognized as an acceptable key, its code will be **literally** `unrecognized`.
