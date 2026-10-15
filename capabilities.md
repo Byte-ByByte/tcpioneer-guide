@@ -31,6 +31,3 @@ Below is an **exhaustive table** of *capabilities*, *IDs*, and *links to docs* t
 | Name | ID | Documentation |
 |------|----|---------------|
 |Keyboard|keyboard|[Keyboard (capability)](/guide/capabilities/keyboard)
-|Mouse|mouse|[Mouse (capability)](/guide/capabilities/mouse)
-|Screenshot|screenshot|[Screenshot (capability)](/guide/capabilities/screenshot)
-|Terminal|terminal|[Terminal (capability)](/guide/capabilities/terminal)

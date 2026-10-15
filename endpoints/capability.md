@@ -40,9 +40,15 @@ The interaction completed successfully.
 
 The resource the capability returned. See [Capabilites: Capabilities Table](/guide/capabilities#capabilities-table) for specific documentation on each capability's return value.
 
-#### 409 Conflict
+#### 404 Forbidden
 
-The server has reached the maximum allowed concurrent sessions in its server policy and the session could not be created.
+##### Description:
+
+Server policy prevents this capability or task from starting.
+
+##### Returns:
+
+An [error object](/guide/return-objects/error), which provides more error information.
 
 ### Responses inherited from: Authentication
 
@@ -50,14 +56,40 @@ The server has reached the maximum allowed concurrent sessions in its server pol
 
 The auth token provided was incorrect or absent.
 
+### Responses inherited from: Session
+
+#### 404 Not Found
+
+##### Description:
+
+The session key does not exist or is incorrect.
+
+##### Returns:
+
+An [error object](/guide/return-objects/error), which provides more error information.
+
+#### 410 Gone
+
+##### Description:
+
+The requested session key has been deleted.
+
+> **This error can only be emitted once per session key; the subsequent request for the session key after its deletion.** Once you recieve this error, you **must** not attempt to use this session key again. (see [Guide: Session Deletion](/guide#session-deletion))
+
+##### Returns:
+
+An [error object](/guide/return-objects/error), which provides more error information.
+
+#### 404 Not Found
+
 ### Responses inherited from: Server Side Errors
 
 #### 500 Internal Server Error
 
 ##### Description:
 
-An issue has happened internally with the TCPIOneer host. Inform an admin if this is a recurring issue.
+An error has occured within a capability, or an issue has happened internally with the TCPIOneer host. This is usually not the client's fault.
 
 ##### Returns:
 
-None
+An [error object](/guide/return-objects/error), which provides more error information.
