@@ -93,4 +93,5 @@ None
 
 #### Returns
 
-Array of keypresses in 
+Array of keypresses in acceptable key format.
+If a key is not recognized as an acceptable key, its code will be **literally** `unrecognized`.
