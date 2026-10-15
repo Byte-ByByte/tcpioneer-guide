@@ -59,26 +59,66 @@ Inputs a keypress on the host system.
 
 `key`: A key out of the acceptable keys to press.
 
+`hold`: **OPTIONAL** How long to hold this key, in milliseconds. Default is **10ms**.
+
+#### Returns
+
+None
+
+##### Example
+
+```json
+{
+    "key": "sp",
+    "hold": 500
+}
+```
+
 ### 1: Type
 
 Types a sequence of keys on the host system.
 
 #### Parameters
 
-`keys`: An array of keys out of the acceptable keys to type, or a string to type.
+`text`: An array of keys out of the acceptable keys to type, or a string to type.
 
 `delay`: **OPTIONAL** A delay between keypresses to allow the host to process them, in milliseconds. **Default is 5.**
+
+`hold`: **OPTIONAL** How long to hold each key, in milliseconds. Default is **10ms**.
 
 #### Returns
 
 None
+
+#### Example
+
+```json
+{
+    "text": "tcpioneer",
+    "hold": 500,
+    "delay": 30
+}
+```
 
 ### 2: Type Shortcut
 
 #### Parameters
 
-`keys`: An array of keys out of the acceptable keys to press as a shortcut.
+`keys`: An array of keys out of the acceptable keys, or a string, to press simultaneously.
+
+`hold`: **OPTIONAL** How long to hold this shortcut, in milliseconds. Default is **5ms**.
+
+> Shortcuts can be represented as a string by delimiting keys using `+`. For example: `ctrl+alt+del`
 
 #### Returns
 
 None
+
+#### Example
+
+```json
+{
+    "text": ["ctrl", "alt", "delete"],
+    "hold": 200
+}
+```
