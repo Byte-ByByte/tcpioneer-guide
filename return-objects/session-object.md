@@ -51,7 +51,7 @@ Below is a fully compatible TypeScript type that can be dropped into code withou
 
 ```typescript
 type SessionObject = {
-    "session-id": `${string}-${string}-${string}-${string}-${string}` // UUID
+    "session-key": `${string}-${string}-${string}-${string}-${string}` // UUID
     "created": string
     "expiry": string
     "capabilities": string[]

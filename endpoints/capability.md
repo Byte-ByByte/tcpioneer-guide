@@ -11,15 +11,31 @@ Requests the server to run a capability (see [Capabilities](/guide/capabilities)
 `Content-Type: JSON`
 
 * `capability-name`: `string` Capability ID to run. See [Capabilities: Capabilities Table](/guide/capabilities#capabilities-table) for examples.
-* `params`: `{...}` Parameters to the capability to run with. See [Capabilites: Capabilities Table](/guide/capabilities#capabilities-table) for specific documentation on each capability's parameters.
-* `task` The task you want the capability to run. See [Capabilites: Capabilities Table](/guide/capabilities#capabilities-table) for specific documentation on each capability's tasks, and see [Capabilites: Tasks](/guide/capabilities#capabilities-table) for more information on tasks.
+* `params`: `{...}` Parameters to the capability to run with. See [Capabilities: Capabilities Table](/guide/capabilities#capabilities-table) for specific documentation on each capability's parameters.
+* `task` The task you want the capability to run. See [Capabilities: Capabilities Table](/guide/capabilities#capabilities-table) for specific documentation on each capability's tasks, and see [Capabilities: Tasks](/guide/capabilities#capabilities-table) for more information on tasks.
 * `session`: Inherited from [Guide: Session Usage](/guide#session-usage). The session key you want this capability to be used on.
 
 
 ## Examples
 
 ```http
+POST /capability HTTP/1.1
+Authorization: Bearer <token>
+Content-Type: application/json
 
+{
+    "capability-name": "keyboard",
+    "params": {
+        "key": "enter"
+    },
+    "task": 0,
+    "session": "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx"
+}
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+null
 ```
 
 ## Headers
@@ -38,9 +54,9 @@ The interaction completed successfully.
 
 ##### Returns:
 
-The resource the capability returned. See [Capabilites: Capabilities Table](/guide/capabilities#capabilities-table) for specific documentation on each capability's return value.
+The resource the capability returned. See [Capabilities: Capabilities Table](/guide/capabilities#capabilities-table) for specific documentation on each capability's return value.
 
-#### 404 Forbidden
+#### 403 Forbidden
 
 ##### Description:
 
@@ -74,13 +90,11 @@ An [error object](/guide/return-objects/error), which provides more error inform
 
 The requested session key has been deleted.
 
-> **This error can only be emitted once per session key; the subsequent request for the session key after its deletion.** Once you recieve this error, you **must** not attempt to use this session key again. (see [Guide: Session Deletion](/guide#session-deletion))
+> **This error is emitted only on the first request that uses a deleted session key. Subsequent requests for the same key return 404 Not Found.** Once you receive this error, you **must** not attempt to use this session key again. (see [Guide: Session Deletion](/guide#session-deletion))
 
 ##### Returns:
 
 An [error object](/guide/return-objects/error), which provides more error information.
-
-#### 404 Not Found
 
 ### Responses inherited from: Server Side Errors
 
@@ -88,7 +102,7 @@ An [error object](/guide/return-objects/error), which provides more error inform
 
 ##### Description:
 
-An error has occured within a capability, or an issue has happened internally with the TCPIOneer host. This is usually not the client's fault.
+An error has occurred within a capability, or an issue has happened internally with the TCPIOneer host. This is usually not the client's fault.
 
 ##### Returns:
 

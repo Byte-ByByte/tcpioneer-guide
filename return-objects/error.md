@@ -37,7 +37,7 @@ Below is an example error object that is fully filled out.
 Below is a fully compatible TypeScript type that can be dropped into code without modification.
 
 ```typescript
-type SessionObject = {
+type ErrorObject = {
     "code": string
     "message": string
     "source": "server" | "client"
