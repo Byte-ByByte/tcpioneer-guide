@@ -37,11 +37,7 @@ The interaction completed successfully.
 
 ##### Returns:
 
-
-
-#### 409 Conflict
-
-The server has reached the maximum allowed concurrent sessions in its server policy and the session could not be created.
+None
 
 ### Responses inherited from: Authentication
 
