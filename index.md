@@ -55,7 +55,7 @@ It is possible to compare the `ETag` yourself, though it is **highly** recommend
 
 When a client sends a `GET` request to the documentation endpoints **without** `If-None-Match`, the server will respond with `200 OK`, the documentation resource requested, and headers related to caching like `Cache-Control` and `ETag`. 
 
-When a client sends a `GET` request to the documentation endpoints **without** `If-None-Match` header **matching** the file requested, the server will respond with `200 OK`, the documentation resource requested, and headers related to caching like `Cache-Control` and `ETag`. 
+When a client sends a `GET` request to the documentation endpoints **with** `If-None-Match` header **not matching** the file requested, the server will respond with `200 OK`, the documentation resource requested, and headers related to caching like `Cache-Control` and `ETag`. 
 
 When a client sends a `GET` request to the documentation endpoints **with** `If-None-Match` matching the file requested, the server will send a `304 Not Modified` response code, with no body, and the headers it would usually send in a `200 OK` response, including applicable cache metadata.
 
@@ -100,7 +100,7 @@ Example:
 ```http
 GET /api/v1/request-session HTTP/1.1
 [other headers...]
-Authorization: Bearer abcd1234
+Authorization: Bearer <token>
 ```
 
 A valid token authenticates the request, but does not by itself guarantee
