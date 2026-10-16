@@ -12,14 +12,14 @@ Requests the server to run a capability (see [Capabilities](/guide/capabilities)
 
 * `capability-name`: `string` Capability ID to run. See [Capabilities: Capabilities Table](/guide/capabilities#capabilities-table) for examples.
 * `params`: `{...}` Parameters to the capability to run with. See [Capabilities: Capabilities Table](/guide/capabilities#capabilities-table) for specific documentation on each capability's parameters.
-* `task` The task you want the capability to run. See [Capabilities: Capabilities Table](/guide/capabilities#capabilities-table) for specific documentation on each capability's tasks, and see [Capabilities: Tasks](/guide/capabilities#capabilities-table) for more information on tasks.
+* `task` The task you want the capability to run. See [Capabilities: Capabilities Table](/guide/capabilities#capabilities-table) for specific documentation on each capability's tasks, and see [Capabilities: Tasks](/guide/capabilities#tasks) for more information on tasks.
 * `session`: Inherited from [Guide: Session Usage](/guide#session-usage). The session key you want this capability to be used on.
 
 
 ## Examples
 
 ```http
-POST /capability HTTP/1.1
+POST /api/v1/capability HTTP/1.1
 Authorization: Bearer <token>
 Content-Type: application/json
 
@@ -60,7 +60,9 @@ The resource the capability returned. See [Capabilities: Capabilities Table](/gu
 
 ##### Description:
 
-Server policy prevents this capability or task from starting.
+Server policy prevents this capability or task from starting. This interaction is not usable on this session.
+
+The client should **NOT** attempt to use this interaction on this session anymore.
 
 ##### Returns:
 
@@ -95,6 +97,16 @@ The requested session key has been deleted.
 ##### Returns:
 
 An [error object](/guide/return-objects/error), which provides more error information.
+
+#### 400 Bad Request
+
+##### Description:
+
+The session is unusable; the interaction could not be run. Check the `usable` and `unusable-until` fields in [Session Object](/guide/return-objects/session-object).
+
+##### Returns:
+
+None
 
 ### Responses inherited from: Server Side Errors
 

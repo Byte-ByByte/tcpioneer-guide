@@ -40,9 +40,12 @@ The following is a list of acceptable keys that can be passed to this capability
 
 ##### Modifier Keys
 
-* `lshift`, `rshift`
-* `lctrl`, `rctrl`
-* `lalt`, `ralt`
+* `shift`, `lshift`
+* `rshift`
+* `ctrl`, `lctrl`
+* `rctrl`
+* `alt`, `lalt`
+* `ralt`
 * `meta`
 
 ##### Directional Keys
@@ -104,7 +107,7 @@ None
 
 #### Parameters
 
-`keys`: An array of keys out of the acceptable keys, or a string, to press simultaneously.
+`text`: An array of keys out of the acceptable keys, or a string, to press simultaneously.
 
 `hold`: **OPTIONAL** How long to hold this shortcut, in milliseconds. Default is **5ms**.
 

@@ -3,12 +3,11 @@
 ## Introduction
 Welcome to _TCPIOneer_, an API that can serve as a **remote-desktop host** controlled via **HTTP endpoints**.
 
-In this document is a guide on:
+This document is a guide on:
 
 * Guide directory
 * Authentication
 * Session lifecycle
-* Commands
 * Capabilities
 * Endpoints
 
@@ -30,6 +29,7 @@ Every link in this multi-level list does **not** need authentication to access.
 * * Return Objects
 * * * [Session Object](/guide/return-objects/session-object)
 * * * [Error](/guide/return-objects/error)
+* * [Error Codes](/guide/error-codes)
 
 ## Caching
 
@@ -41,7 +41,7 @@ TCPIOneer supports caching with `Cache-Control`, `ETag`, and `If-None-Match`, so
 
 When a client sends a `GET` request to the documentation endpoints, the server sends back the documentation files, the headers required to send a file, and importantly, the headers for caching.
 
-The headers TCPIOneer utilize for caching are `Cache-Control`, `ETag`, and `If-None-Match`.
+The headers TCPIOneer uses for caching are `Cache-Control`, `ETag`, and `If-None-Match`.
 
 `Cache-Control` will be **always** returned as `no-cache` on documentation files.
 
@@ -61,7 +61,7 @@ When a client sends a `GET` request to the documentation endpoints **with** `If-
 
 ### Examples
 
-The client sends a GET request to the server, while a version of its requested file has been cached to it.
+The client sends a GET request to the server, while the requested file is cached locally.
 
 ```http
 GET /guide HTTP/1.1
@@ -98,7 +98,7 @@ If you have a token, using it is simple. To use a token, place it in the `Author
 Example:
 
 ```http
-GET /api/v1/request-session HTTP/1.1
+POST /api/v1/request-session HTTP/1.1
 [other headers...]
 Authorization: Bearer <token>
 ```
@@ -153,9 +153,11 @@ A session key is a UUID that is randomly generated for your session. This key is
 
 A session key identifies and authorizes access to a session; it does not authenticate the client as the original session creator.
 
+> The session may be unusable when you use it. Check the `usable` and `unusable-until` fields in [Session Object](/guide/return-objects/session-object).
+
 ### Session Usage
 
-To use a session key, place it in the `Session` key of JSON POST endpoints.
+To use a session key, place it in the `Session` key of JSON endpoints that require it.
 
 Example:
 ```json
