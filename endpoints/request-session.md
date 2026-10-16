@@ -1,15 +1,15 @@
-# Request Session (POST)
+# Request Session (POST /api/v1/request-session)
 
-> This endpoint requires authentication (see [Guide: Authentication](/guide#authentication)).
+> This endpoint requires authentication (see [Guide: Authentication](/guide/index.md#authentication)).
 
-Requests the server to create a session for the client to use. Returns a [session object](/guide/return-objects/session-object.md), which includes a [session key](/guide#session-key).
+Requests the server to create a session for the client to use. Returns a [session object](/guide/return-objects/session-object.md), which includes a [session key](/guide/index.md#session-lifecycle).
 
 ## Body Parameters
 
 No body parameters for this endpoint.
 
 ## Example
-```
+```http
 POST /api/v1/request-session
 Authorization: Bearer <token>
 
@@ -21,13 +21,13 @@ Content-Type: application/json
 
 ### Headers inherited from: Authentication
 
-`Authorization`: `Bearer` token that matches the server's token (see [Guide: Authentication](/guide#authentication)).
+`Authorization`: `Bearer` token that matches the server's token (see [Guide: Authentication](/guide/index.md#authentication)).
 
 ## Responses
 
 #### 201 Created
 
-The [session object](/guide/return-objects/session-object). Includes a session key that you may use to operate a session (see [Guide: Session Usage](/guide#session-usage)).
+The [session object](/guide/return-objects/session-object.md). Includes a session key that you may use to operate a session (see [Guide: Session Usage](/guide/index.md#session-lifecycle)).
 
 #### 409 Conflict
 
