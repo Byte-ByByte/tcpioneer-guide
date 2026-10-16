@@ -15,10 +15,9 @@ No body parameters for this endpoint.
 ```http
 GET /guide HTTP/1.1
 If-None-Match: "17dc0d50ad0fa7bdaebd8f178fe3cc0b5b3a463e3ca5bf21a5e3b90330f2a06e"
-If-Modified-Since: Sun, 11 Oct 2026, 03:37:23 GMT
 
 HTTP/1.1 304 Not Modified
-Date: Sun, 11 Oct 2026, 03:47:04 GMT
+Date: Sun, 11 Oct 2026 03:47:04 GMT
 Cache-Control: no-cache
 ETag: "17dc0d50ad0fa7bdaebd8f178fe3cc0b5b3a463e3ca5bf21a5e3b90330f2a06e"
 ```

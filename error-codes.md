@@ -4,7 +4,7 @@ Error codes are codes that TCPIOneer emits through [error objects](/guide/return
 
 ## Codes
 
-Below is an **exhaustive** table of codes that TCPIOneer can emit.
+Below is a table of codes that TCPIOneer can emit.
 
 |Code|Message|
 |----|-------|

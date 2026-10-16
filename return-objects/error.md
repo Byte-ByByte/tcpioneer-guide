@@ -14,7 +14,7 @@ Attributes for the error object are listed as:
 
 * `code`: `string`, error code of an error. Can only be an error code listed in [Error Codes: Codes](/guide/error-codes#codes).
 * `message`: `string`, user-facing message of an error code. Can only be an error message listed in [Error Codes: Codes](/guide/error-codes#codes).
-* `source`: `"server" | "client"` Which side of the server-client boundary **caused** the  error.
+* `source`: `"server" | "client"` Which side of the server-client boundary **caused** the error.
 * `extra-info`: `{ ... }` Error-specific information, more info listed at [Error Codes: Codes](/guide/error-codes#codes).
 
 ## Examples

@@ -32,7 +32,7 @@ To choose a task, use the `task` field of the JSON you POST to `/capability`. Mo
 
 ## Capabilities Table
 
-Below is an **exhaustive table** of *capabilities*, *IDs*, and *links to docs* that can be done on a host if allowed:
+Below is a table of *capabilities*, *IDs*, and *links to docs* that can be done on a host if allowed:
 
 | Name | ID | Documentation |
 |------|----|---------------|

@@ -49,8 +49,6 @@ The headers TCPIOneer uses for caching are `Cache-Control`, `ETag`, and `If-None
 
 It is possible to compare the `ETag` yourself, though it is **highly** recommended to compare it through `If-None-Match`.
 
-> Note: `If-None-Match` takes precedence when the request has both `If-None-Match` and `If-Modified-Since`.
-
 ### Endpoint Behavior
 
 When a client sends a `GET` request to the documentation endpoints **without** `If-None-Match`, the server will respond with `200 OK`, the documentation resource requested, and headers related to caching like `Cache-Control` and `ETag`. 
@@ -157,7 +155,7 @@ A session key identifies and authorizes access to a session; it does not authent
 
 ### Session Usage
 
-To use a session key, place it in the `Session` key of JSON endpoints that require it.
+To use a session key, place it in the `session` key of JSON endpoints that require it.
 
 Example:
 ```json
