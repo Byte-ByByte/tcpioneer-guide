@@ -14,13 +14,13 @@ In this document is a:
 
 Attributes for the session object are listed as:
 
-* `session-key`: UUID, used to access a session (see [Guide: Session Key](/guide#session-key))
+* `session`: UUID, used to access a session (see [Guide: Session Key](/guide#session-key))
 * `created`: ISO string (ISO 8601) describing when the session was made
 * `expiry`: ISO string (ISO 8601) describing **when the session will expire** and be deleted
 * `capabilities`: List of capabilities **permitted** to be used this session (see [Capabilities](/guide/capabilities))
 * `timeout`: How many seconds the session can be **unused** before the server deletes the session
 * `usable`: If the session can be used **right now**.
-* `unusable-until`: `undefined` if `usable` is `true`, If `usable` is `false`, `unusable-until` is an ISO string (ISO 8601) that describes **when the session can be used**.
+* `unusable-until`: **Omitted** if `usable` is `true`, If `usable` is `false`, `unusable-until` is an ISO string (ISO 8601) that describes **when the session can be used**.
 
 ## Examples
 
@@ -30,7 +30,7 @@ Below is an example session object that is fully filled out.
 
 ```json
 {
-    "session-key": "c8d3ed48-2581-482b-961e-d58a02bced45",
+    "session": "c8d3ed48-2581-482b-961e-d58a02bced45",
     "created": "2026-10-02T01:09:37.557Z",
     "expiry": "2026-10-03T01:09:37.557Z",
     "capabilities": [
@@ -51,7 +51,7 @@ Below is a fully compatible TypeScript type that can be dropped into code withou
 
 ```typescript
 type SessionObject = {
-    "session-id": `${string}-${string}-${string}-${string}-${string}` // UUID
+    "session": `${string}-${string}-${string}-${string}-${string}` // UUID
     "created": string
     "expiry": string
     "capabilities": string[]

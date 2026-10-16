@@ -9,7 +9,7 @@ Requests the server to create a session for the client to use. Returns a [sessio
 No body parameters for this endpoint.
 
 ## Example
-```
+```http
 POST /api/v1/request-session
 Authorization: Bearer <token>
 
