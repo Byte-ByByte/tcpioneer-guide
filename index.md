@@ -45,7 +45,7 @@ The headers TCPIOneer uses for caching are `Cache-Control`, `ETag`, and `If-None
 
 `Cache-Control` will be **always** returned as `no-cache` on documentation files.
 
-`ETag` will be an **SHA256 digest** of the file encoded as **UTF-8** as a **hexadecimal string** in **lowercase**.
+`ETag` will be an **SHA256 digest** of the file encoded as **UTF-8** as a **hexadecimal string** in **lowercase**. These ETags are **strong**, so they should be encased in double quotes, **without a weak prefix**.
 
 It is possible to compare the `ETag` yourself, though it is **highly** recommended to compare it through `If-None-Match`.
 
