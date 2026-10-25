@@ -17,7 +17,10 @@ Attributes for the session object are listed as:
 * `session`: UUID, used to access a session (see [Guide: Session Key](/guide#session-key))
 * `created`: ISO string (ISO 8601) describing when the session was made
 * `expiry`: ISO string (ISO 8601) describing **when the session will expire** and be deleted
-* `capabilities`: List of capabilities **permitted** to be used this session (see [Capabilities](/guide/capabilities))
+* `capabilities`: Array of capabilities and capability tasks **permitted** to be used this session (see [Capabilities](/guide/capabilities))
+  * Array element object:
+    * `capability`: The capability ID, `string`. (see [Capabilities](/guide/capabilities))
+    * `tasks`: Array of task integers permitted for this capability. (see [Capabilities](/guide/capabilities))
 * `timeout`: How many seconds the session can be **unused** before the server deletes the session
 * `usable`: If the session can be used **right now**.
 * `unusable-until`: **Omitted** if `usable` is `true`, If `usable` is `false`, `unusable-until` is an ISO string (ISO 8601) that describes **when the session can be used**.
