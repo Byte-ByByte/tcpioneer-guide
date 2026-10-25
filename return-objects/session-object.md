@@ -37,10 +37,10 @@ Below is an example session object that is fully filled out.
     "created": "2026-10-02T01:09:37.557Z",
     "expiry": "2026-10-03T01:09:37.557Z",
     "capabilities": [
-        "keyboard",
-        "mouse",
-        "terminal",
-        "screenshot"
+        {
+            "capability": "keyboard",
+            "tasks": [0, 1, 2]
+        }
     ],
     "timeout": 120,
     "usable": false,
@@ -57,7 +57,10 @@ type SessionObject = {
     "session": `${string}-${string}-${string}-${string}-${string}` // UUID
     "created": string
     "expiry": string
-    "capabilities": string[]
+    "capabilities": {
+        "capability": string
+        "tasks": number[]
+    }[]
     "timeout": number
     "usable": boolean
     "unusable-until"?: string
