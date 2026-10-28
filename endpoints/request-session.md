@@ -1,46 +1,22 @@
-# Request Session (POST /api/v1/request-session)
+# Request an AI Session (POST /api/v1/request-session)
 
-> This endpoint requires authentication (see [Guide: Authentication](/guide/index.md#authentication)).
+Creates a session for an AI or automation client. The configured access token is required in the `Authorization` header. The session ID is a separate credential and must be kept private.
 
-Requests the server to create a session for the client to use. Returns a [session object](/guide/return-objects/session-object.md), which includes a [session key](/guide/index.md#session-lifecycle).
+## Request
 
-## Body Parameters
-
-No body parameters for this endpoint.
-
-## Example
 ```http
 POST /api/v1/request-session
 Authorization: Bearer <token>
-
-HTTP/1.1 201 Created
-Content-Type: application/json
 ```
 
-## Headers
+No request body is required. The server reads the token only from the Authorization header; values in query parameters or JSON bodies are ignored. Remote requests require HTTPS; localhost requests may use HTTP.
 
-### Headers inherited from: Authentication
+## Successful response
 
-`Authorization`: `Bearer` token that matches the server's token (see [Guide: Authentication](/guide/index.md#authentication)).
+The server returns `201 Created` with a session response. See the [session response fields](/guide/return-objects/session-object.md). The `session` field is used in the JSON body of control, screenshot, and accessibility requests.
 
-## Responses
+## Errors
 
-#### 201 Created
-
-The [session object](/guide/return-objects/session-object.md). Includes a session key that you may use to operate a session (see [Guide: Session Usage](/guide/index.md#session-lifecycle)).
-
-#### 409 Conflict
-
-The server has reached the maximum allowed concurrent sessions in its server policy and the session could not be created.
-
-### Responses inherited from: Authentication
-
-#### 401 Unauthorized
-
-The auth token provided was incorrect or absent.
-
-### Responses inherited from: Server Side Errors
-
-#### 500 Internal Server Error
-
-An issue has happened internally with the TCPIOneer host. Inform an admin if this is a recurring issue.
+- `401 Unauthorized`: the Bearer token is absent or invalid.
+- `403 Forbidden`: session creation has been disabled by the server operator.
+- `429 Too Many Requests`: the server has reached its limit of 500 active sessions.

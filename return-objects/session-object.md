@@ -1,60 +1,43 @@
-# Session Object
+# Session Responses
 
-## Introduction
+Session IDs are opaque values used to authorize requests. They are separate from the API access token. AI sessions require the Bearer token in the `Authorization` header when used; local and paired human sessions are authorized by the browser connection and do not use the API token.
 
-The session object is what [Request Session (/api/v1/request-session)](/guide/endpoints/request-session.md) sends as a **member** of its *response body* when the response status code is 201 Created.
+## Create an AI session
 
-In this document is a:
-
-* Typing of the session object
-* Description of each property
-* Example of a loaded session object
-
-## Typing
-
-Attributes for the session object are listed as:
-
-* `session-key`: UUID, used to access a session (see [Guide: Session Lifecycle](/guide/index.md#session-lifecycle))
-* `created`: UTC string (ISO 8601) describing when the session was made
-* `expiry`: UTC string (ISO 8601) describing **when the session will expire** and be deleted
-* `capabilities`: List of capabilities **permitted** to be used this session (see [Capabilities](/guide/capabilities.md))
-* `timeout`: How many seconds the session can be **unused** before the server deletes the session
-* `usable`: If the session can be used **right now**.
-* `unusable-until`: `undefined` if `usable` is `true`, If `usable` is `false`, `unusable-until` is a UTC string (ISO 8601) that describes **when the session can be used**.
-
-## Examples
-
-### Fully loaded example
-
-Below is an example session object that is fully filled out.
+`POST /api/v1/request-session` returns `201 Created`:
 
 ```json
 {
-    "session-key": "c8d3ed48-2581-482b-961e-d58a02bced45",
-    "created": "2026-10-02T01:09:37.557Z",
-    "expiry": "2026-10-03T01:09:37.557Z",
-    "capabilities": [
-        "keyboard",
-        "mouse",
-        "screenshot"
-    ],
-    "timeout": 120,
-    "usable": true
+  "ok": true,
+  "session": "c8d3ed48-2581-482b-961e-d58a02bced45",
+  "session-key": "c8d3ed48-2581-482b-961e-d58a02bced45",
+  "createdAt": "2026-10-28T12:00:00.000Z",
+  "created": "2026-10-28T12:00:00.000Z",
+  "expiresAt": "2026-10-28T13:00:00.000Z",
+  "expiry": "2026-10-28T13:00:00.000Z",
+  "capabilities": ["mouse", "keyboard", "screenshot", "accessibility"],
+  "usable": true
 }
 ```
 
-### TypeScript typing
+Use `session` in the JSON body of control, screenshot, and accessibility requests. `session-key`, `created`, and `expiry` are compatibility aliases. AI sessions expire one hour after creation.
 
-Below is a fully compatible TypeScript type that can be dropped into code without modification.
+## Create a human session
 
-```typescript
-type SessionObject = {
-    "session-key": `${string}-${string}-${string}-${string}-${string}` // UUID
-    "created": string
-    "expiry": string
-    "capabilities": string[]
-    "timeout": number
-    "usable": boolean
-    "unusable-until"?: string
+`POST /api/v1/human-session` returns `201 Created` with `ok`, `session`, `createdAt`, `expiresAt`, and `capabilities`. It does not return the AI-only `session-key` and compatibility aliases. See [Human Sessions](/guide/endpoints/human-session.md).
+
+## Inspect an AI session
+
+`GET /api/v1/session?session=<session-id>` returns:
+
+```json
+{
+  "ok": true,
+  "session": "c8d3ed48-2581-482b-961e-d58a02bced45",
+  "createdAt": "2026-10-28T12:00:00.000Z",
+  "expiresAt": "2026-10-28T13:00:00.000Z",
+  "valid": true
 }
 ```
+
+This endpoint requires the Bearer token and only inspects AI sessions. See [Session Management](/guide/endpoints/session.md).

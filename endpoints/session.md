@@ -1,46 +1,36 @@
 # Session Management (GET & DELETE /api/v1/session)
 
-> These endpoints require authentication (see [Guide: Authentication](/guide#authentication)).
+AI sessions require the configured Bearer token in the `Authorization` header. The session identifier is a separate value and is not an access token.
 
-## Inspect Session (GET /api/v1/session)
+## Inspect an AI Session
 
-Inspects information and validity of a given session key.
+`GET /api/v1/session?session=<session-id>`
 
-### Query Parameters
+Include `Authorization: Bearer <token>`. The server returns session creation and expiry times. Query strings are omitted from request logs.
 
-- `session`: `string` (UUID) - Session key to inspect.
+## Delete a Session
 
-Example:
-`GET /api/v1/session?session=c8d3ed48-2581-482b-961e-d58a02bced45`
+For an AI session, send its ID in the JSON body and the token in the header:
 
-### Response (200 OK)
-```json
+```http
+DELETE /api/v1/session
+Authorization: Bearer <token>
+Content-Type: application/json
+
 {
-  "ok": true,
-  "session": "c8d3ed48-2581-482b-961e-d58a02bced45",
-  "createdAt": "2026-10-02T01:09:37.557Z",
-  "expiresAt": "2026-10-02T02:09:37.557Z",
-  "valid": true
+  "session": "<session-id>"
 }
 ```
 
----
+For a human session, omit the Authorization header. The request must still come from that session's permitted local or paired browser connection.
 
-## Delete Session (DELETE /api/v1/session)
+A successful response is:
 
-Revokes and invalidates a session key immediately.
-
-### Request Body
-```json
-{
-  "session": "c8d3ed48-2581-482b-961e-d58a02bced45"
-}
-```
-
-### Response (200 OK)
 ```json
 {
   "ok": true,
   "deleted": true
 }
 ```
+
+Sessions expire after one hour and expired entries are removed automatically. The server permits up to 500 active sessions. Local human sessions need no API token; remote human sessions are created by redeeming a single-use pairing code over HTTPS. The `GET` endpoint inspects AI sessions only.

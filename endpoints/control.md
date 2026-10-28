@@ -1,17 +1,17 @@
 # Control Endpoint (POST /api/v1/control)
 
-> This endpoint requires authentication (see [Guide: Authentication](/guide/index.md#authentication)) and an active session key.
+> This endpoint requires an active session. AI sessions also require the Bearer token in the `Authorization` header; local and paired human sessions do not use the API token.
 
-Executes desktop input actions on the host machine.
+Executes desktop input actions on the host machine. AI token authentication reads only the Authorization header; token values in the URL or JSON body are ignored.
 
 ## Request Headers
 
-- `Authorization`: `Bearer <token>`
+- `Authorization`: `Bearer <token>` for AI sessions; omit for human sessions.
 - `Content-Type`: `application/json`
 
 ## Body Parameters
 
-- `session`: `string` (UUID) - Active session key returned by [`/api/v1/request-session`](/guide/endpoints/request-session.md).
+- `session`: `string` (UUID) - Active session ID returned by [`/api/v1/request-session`](/guide/endpoints/request-session.md) or [`/api/v1/human-session`](/guide/endpoints/human-session.md).
 - `action`: `object` - The action payload to execute.
 
 ### Action Payloads
@@ -105,4 +105,7 @@ Executes desktop input actions on the host machine.
 Request body or action parameter is malformed.
 
 ### 401 Unauthorized
-Invalid token or expired/invalid session key.
+The session is missing, expired, or not authorized for this request. AI requests also return this status when the Bearer token is absent or invalid.
+
+### 501 Not Implemented
+The host platform does not support the requested desktop action.
