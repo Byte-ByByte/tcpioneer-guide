@@ -12,3 +12,6 @@ GENERAL_ERROR|A general error has occurred and a specific issue is not found.
 SESSION_NOT_FOUND|The session could not be found.
 SESSION_DELETED|The session has been deleted.
 FORBIDDEN|The client's action is forbidden by the server.
+REQUEST_TOO_LARGE|The request body is too large.
+CAPABILITY_NOT_FOUND|The capability could not be found.
+SESSION_UNUSABLE|The session is not usable yet.
