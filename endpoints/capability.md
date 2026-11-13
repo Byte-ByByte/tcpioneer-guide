@@ -60,7 +60,7 @@ The resource the capability returned. See [Capabilities: Capabilities Table](/gu
 
 ##### Description:
 
-Server policy prevents this capability or task from starting. This interaction is not usable on this session.
+Server policy prevents this capability or task from starting, or the capability name is invalid. This interaction is not usable on this session.
 
 The client should **NOT** attempt to use this interaction on this session anymore.
 
