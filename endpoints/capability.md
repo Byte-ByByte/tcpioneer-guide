@@ -68,6 +68,16 @@ The client should **NOT** attempt to use this interaction on this session anymor
 
 An [error object](/guide/return-objects/error), which provides more error information.
 
+#### 405 Method Not Allowed
+
+##### Description:
+
+The request had a method other than the allowed methods for this endpoint.
+
+##### Returns:
+
+None, but with an `Allow` header stating which methods are allowed.
+
 ### Responses inherited from: Authentication
 
 #### 401 Unauthorized
