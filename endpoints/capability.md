@@ -118,6 +118,16 @@ The session is unusable; the interaction could not be run. Check the `usable` an
 
 None
 
+#### 413 Content Too Large
+
+##### Description:
+
+The request body is larger than TCPIOneer's limits.
+
+##### Returns:
+
+An [error object](/guide/return-objects/error), which provides more error information.
+
 ### Responses inherited from: Server Side Errors
 
 #### 500 Internal Server Error
