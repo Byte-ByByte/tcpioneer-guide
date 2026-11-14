@@ -194,6 +194,8 @@ The client **CANNOT** execute operations that are not permitted by the file.
 
 More specific information can be found at [Capabilities](/guide/capabilities).
 
+> Capabilities MAY change between clients. Please revalidate capability access through the [session object](/guide/return-objects/session-object).
+
 ## Endpoints
 
 > Specific endpoint help can be found as children in Endpoints (see [Guide Directory](#guide-directory)).
