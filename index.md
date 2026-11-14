@@ -121,7 +121,7 @@ Sessions **must** be removed if unused, since servers often have a maximum sessi
 
 Here's a graph showing you what this lifecycle looks like (left to right):
 
-```
+```mermaid
 graph LR
 a["Session Request"]
 b{"Permitted?"}
