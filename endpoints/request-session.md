@@ -1,4 +1,4 @@
-# Request Session (POST)
+# Request Session (GET)
 
 > This endpoint requires authentication. (see [Guide: Authentication](/guide#authentication))
 
@@ -27,37 +27,47 @@ Content-Type: application/json
 
 #### 201 Created
 
-##### Description:
+##### Description
 
 The session body has been created.
 
-##### Returns:
+##### Returns
 
 The [session object](/guide/return-objects/session-object). Includes a session key that you may use to operate a session (see [Guide: Session Usage](/guide#session-usage)).
 
 #### 409 Conflict
 
-##### Description:
+##### Description
 
 The server has reached the maximum allowed concurrent sessions in its server policy and the session could not be created.
 
-##### Returns:
+##### Returns
 
 None
 
-### Responses inherited from: Authentication
+#### 405 Method Not Allowed
+
+##### Description
+
+The incorrect method has been used on this endpoint.
+
+##### Returns
+
+None, with an `Allow` header to communicate the correct method
+
+### Authentication Responses
 
 #### 401 Unauthorized
 
-##### Description:
+##### Description
 
 The auth token provided was incorrect or absent.
 
-##### Returns:
+##### Returns
 
 None
 
-### Responses inherited from: Server Side Errors
+### Server Side Errors
 
 #### 500 Internal Server Error
 

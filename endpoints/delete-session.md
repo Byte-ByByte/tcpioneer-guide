@@ -14,7 +14,7 @@ Deletes a session.
 
 ## Example
 ```http
-POST /api/v1/request-session
+POST /api/v1/delete-session
 Authorization: Bearer <token>
 
 HTTP/1.1 201 Created
@@ -23,7 +23,7 @@ Content-Type: application/json
 
 ## Headers
 
-### Headers inherited from: Authentication
+### Authentication Headers
 
 `Authorization`: `Bearer` token that matches the server's token (see [Guide: Authentication](/guide#authentication)).
 
@@ -31,66 +31,78 @@ Content-Type: application/json
 
 #### 204 No Content
 
-##### Description:
+##### Description
 
 The session has been successfully deleted.
 
-##### Returns:
+##### Returns
 
 None
 
+#### 405 Method Not Allowed
+
+##### Description
+
+The incorrect method has been used on this endpoint.
+
+##### Returns
+
+None, with an `Allow` header to communicate the correct method
+
+#### 400 Bad Request
+
+##### Description
+
+The input is malformed.
+
+##### Returns
+
+None
+
+### Session Responses
+
 #### 410 Gone
 
-##### Description:
+##### Description
 
 The requested session key has already been deleted.
 
 > **This error is emitted only on the first request that uses a deleted session key. Subsequent requests for the same key return 404 Not Found.** Once you receive this error, you **must** not attempt to use this session key again. (see [Guide: Session Deletion](/guide#session-deletion))
 
-##### Returns:
+##### Returns
 
 An [error object](/guide/return-objects/error), which provides more error information.
-
-#### 400 Bad Request
-
-##### Description:
-
-The input is malformed.
-
-##### Returns:
-
-None
 
 #### 404 Not Found
 
-##### Description:
+##### Description
 
 The session key does not exist or is incorrect.
 
-##### Returns:
+##### Returns
 
 An [error object](/guide/return-objects/error), which provides more error information.
 
-### Responses inherited from: Authentication
+### Authentication Responses
 
 #### 401 Unauthorized
 
-##### Description:
+##### Description
 
 The auth token provided was incorrect or absent.
 
-##### Returns:
+##### Returns
 
 None
 
-### Responses inherited from: Server Side Errors
+### Server Side Errors
 
 #### 500 Internal Server Error
 
-##### Description:
+##### Description
 
 An issue has happened internally with the TCPIOneer host. Inform an admin if this is a recurring issue.
 
-##### Returns:
+##### Returns
 
 None
