@@ -112,11 +112,11 @@ An [error object](/guide/return-objects/error), which provides more error inform
 
 ##### Description:
 
-The session is unusable; the interaction could not be run. Check the `usable` and `unusable-until` fields in [Session Object](/guide/return-objects/session-object).
+The request is malformed, **the capability parameters are malformed**, or the session is unusable; the interaction could not be run. Check the `usable` and `unusable-until` fields in [Session Object](/guide/return-objects/session-object).
 
 ##### Returns:
 
-None
+None, but can be an [error object](/guide/return-objects/error) with error code `MALFORMED_CAPABILITY_PARAMS` when the capability parameters are malformed.
 
 #### 413 Content Too Large
 
