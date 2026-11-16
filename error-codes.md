@@ -15,3 +15,4 @@ FORBIDDEN|The client's action is forbidden by the server.
 REQUEST_TOO_LARGE|The request body is too large.
 CAPABILITY_NOT_FOUND|The capability could not be found.
 SESSION_UNUSABLE|The session is not usable yet.
+MALFORMED_CAPABILITY_PARAMS|The request's capability parameters are malformed.
