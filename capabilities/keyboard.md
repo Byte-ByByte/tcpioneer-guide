@@ -46,7 +46,8 @@ The following is a list of acceptable keys that can be passed to this capability
 * `rctrl`
 * `alt`, `lalt`
 * `ralt`
-* `meta`
+* `meta`, `lmeta`
+* `rmeta`
 
 ##### Directional Keys
 
