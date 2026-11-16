@@ -116,7 +116,7 @@ The request is malformed, **the capability parameters are malformed**, or the se
 
 ##### Returns:
 
-None, but can be an [error object](/guide/return-objects/error) with error code `MALFORMED_CAPABILITY_PARAMS` when the capability parameters are malformed.
+None, but can be an [error object](/guide/return-objects/error) with error code `SESSION_UNUSABLE` or `MALFORMED_CAPABILITY_PARAMS` if such errors occur.
 
 #### 413 Content Too Large
 
